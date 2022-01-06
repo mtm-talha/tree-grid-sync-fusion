@@ -3,6 +3,7 @@ import { dataSource, virtualData } from './datasource';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { BeforeOpenCloseEventArgs } from '@syncfusion/ej2-inputs';
 import { MenuEventArgs } from '@syncfusion/ej2-navigations';
+import {  EditSettingsModel } from '@syncfusion/ej2-treegrid'
 
 export interface DialogData {
   animal: string;
@@ -23,6 +24,7 @@ export class AppComponent implements OnInit {
   public pageSettings: Object | undefined;
   public toolbar: string[] = [];
   public contextMenuItems: Object[] = [];
+  public editing: EditSettingsModel | undefined;
 
   constructor(public dialog: MatDialog) {}
   ngOnInit(): void {
@@ -41,14 +43,18 @@ export class AppComponent implements OnInit {
 
         {text: 'Add Next', target: '.e-content', id: ''},
         {text: 'Add child', target: '.e-content', id: ''},
-        {text: 'Delete row', target: '.e-content', id: ''},
-        {text: 'Edit row', target: '.e-content', id: ''},
+        'Edit',
+        'Delete',
+        'Save',
+        'AddRow',
         {text: 'Multiselect', target: '.e-content', id: ''},
         {text: 'Copy rows', target: '.e-content', id: ''},
         {text: 'Cut rows', target: '.e-content', id: ''},
         {text: 'Paste next', target: '.e-content', id: ''},
         {text: 'Paste child', target: '.e-content', id: ''},
     ];
+
+    this.editing = {newRowPosition:'Above', allowAdding:true, allowDeleting:true, showDeleteConfirmDialog:true, showConfirmDialog:true, allowEditing: true, mode: 'Dialog'};
 }
 
 contextMenuOpen(arg?: BeforeOpenCloseEventArgs): void {}
@@ -69,6 +75,8 @@ contextMenuOpen(arg?: BeforeOpenCloseEventArgs): void {}
     if (args.item.id === 'addHeaderColoumn') {
       this.openDialog();
     } 
+    
+    
 }
 
 }
