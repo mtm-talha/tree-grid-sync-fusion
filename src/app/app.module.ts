@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { TreeGridModule, InfiniteScrollService, PageService, ColumnChooserService, ToolbarService } from '@syncfusion/ej2-angular-treegrid';
-import { SortService, FilterService } from '@syncfusion/ej2-angular-treegrid';
+import { SortService, ResizeService, ExcelExportService, PdfExportService, ContextMenuService } from '@syncfusion/ej2-angular-treegrid';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,10 @@ import { SortService, FilterService } from '@syncfusion/ej2-angular-treegrid';
     ColumnChooserService,
     InfiniteScrollService,
     SortService,
-    FilterService],
+    ResizeService, 
+    ExcelExportService, 
+    PdfExportService, 
+    ContextMenuService,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
