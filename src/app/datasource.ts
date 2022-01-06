@@ -88,3 +88,247 @@ export let virtualData: any[] = [];
         }
     }
 
+    export const dummyData:any[]=[
+        { 
+          taskID: 1,
+          taskName: 'Planning',
+          startDate: new Date('02/03/2017'),
+          endDate: new Date('02/07/2017'),
+          progress: 100,
+          duration: 5,
+          priority: 'Normal',
+          approved: false,
+          subtasks: [
+            { taskID: 2, taskName: 'Plan timeline', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Normal', approved: false },
+            { taskID: 3, taskName: 'Plan budget', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Low', approved: true },
+            { taskID: 4, taskName: 'Allocate resources', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Critical', approved: false },
+            { taskID: 5, taskName: 'Planning complete', startDate: new Date('02/07/2017'),
+              endDate: new Date('02/07/2017'), duration: 0, progress: 0, priority: 'Low', approved: true }
+          ]
+        },
+        { 
+          taskID: 6,
+          taskName: 'Planning',
+          startDate: new Date('02/03/2017'),
+          endDate: new Date('02/07/2017'),
+          progress: 100,
+          duration: 5,
+          priority: 'Normal',
+          approved: false,
+          subtasks: [
+            { taskID: 7, taskName: 'Plan timeline', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Normal', approved: false },
+            { taskID: 8, taskName: 'Plan budget', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Low', approved: true },
+            { taskID: 9, taskName: 'Allocate resources', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Critical', approved: false },
+            { taskID: 10, taskName: 'Planning complete', startDate: new Date('02/07/2017'),
+              endDate: new Date('02/07/2017'), duration: 0, progress: 0, priority: 'Low', approved: true }
+          ]
+        },
+        { 
+          taskID: 1,
+          taskName: 'Planning',
+          startDate: new Date('02/03/2017'),
+          endDate: new Date('02/07/2017'),
+          progress: 100,
+          duration: 5,
+          priority: 'Normal',
+          approved: false,
+          subtasks: [
+            { taskID: 2, taskName: 'Plan timeline', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Normal', approved: false },
+            { taskID: 3, taskName: 'Plan budget', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Low', approved: true },
+            { taskID: 4, taskName: 'Allocate resources', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Critical', approved: false },
+            { taskID: 5, taskName: 'Planning complete', startDate: new Date('02/07/2017'),
+              endDate: new Date('02/07/2017'), duration: 0, progress: 0, priority: 'Low', approved: true }
+          ]
+        },
+        { 
+          taskID: 6,
+          taskName: 'Planning',
+          startDate: new Date('02/03/2017'),
+          endDate: new Date('02/07/2017'),
+          progress: 100,
+          duration: 5,
+          priority: 'Normal',
+          approved: false,
+          subtasks: [
+            { taskID: 7, taskName: 'Plan timeline', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Normal', approved: false },
+            { taskID: 8, taskName: 'Plan budget', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Low', approved: true },
+            { taskID: 9, taskName: 'Allocate resources', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Critical', approved: false },
+            { taskID: 10, taskName: 'Planning complete', startDate: new Date('02/07/2017'),
+              endDate: new Date('02/07/2017'), duration: 0, progress: 0, priority: 'Low', approved: true }
+          ]
+        },
+        { 
+          taskID: 1,
+          taskName: 'Planning',
+          startDate: new Date('02/03/2017'),
+          endDate: new Date('02/07/2017'),
+          progress: 100,
+          duration: 5,
+          priority: 'Normal',
+          approved: false,
+          subtasks: [
+            { taskID: 2, taskName: 'Plan timeline', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Normal', approved: false },
+            { taskID: 3, taskName: 'Plan budget', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Low', approved: true },
+            { taskID: 4, taskName: 'Allocate resources', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Critical', approved: false },
+            { taskID: 5, taskName: 'Planning complete', startDate: new Date('02/07/2017'),
+              endDate: new Date('02/07/2017'), duration: 0, progress: 0, priority: 'Low', approved: true }
+          ]
+        },
+        { 
+          taskID: 6,
+          taskName: 'Planning',
+          startDate: new Date('02/03/2017'),
+          endDate: new Date('02/07/2017'),
+          progress: 100,
+          duration: 5,
+          priority: 'Normal',
+          approved: false,
+          subtasks: [
+            { taskID: 7, taskName: 'Plan timeline', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Normal', approved: false },
+            { taskID: 8, taskName: 'Plan budget', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Low', approved: true },
+            { taskID: 9, taskName: 'Allocate resources', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Critical', approved: false },
+            { taskID: 10, taskName: 'Planning complete', startDate: new Date('02/07/2017'),
+              endDate: new Date('02/07/2017'), duration: 0, progress: 0, priority: 'Low', approved: true }
+          ]
+        },
+        { 
+          taskID: 1,
+          taskName: 'Planning',
+          startDate: new Date('02/03/2017'),
+          endDate: new Date('02/07/2017'),
+          progress: 100,
+          duration: 5,
+          priority: 'Normal',
+          approved: false,
+          subtasks: [
+            { taskID: 2, taskName: 'Plan timeline', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Normal', approved: false },
+            { taskID: 3, taskName: 'Plan budget', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Low', approved: true },
+            { taskID: 4, taskName: 'Allocate resources', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Critical', approved: false },
+            { taskID: 5, taskName: 'Planning complete', startDate: new Date('02/07/2017'),
+              endDate: new Date('02/07/2017'), duration: 0, progress: 0, priority: 'Low', approved: true }
+          ]
+        },
+        { 
+          taskID: 6,
+          taskName: 'Planning',
+          startDate: new Date('02/03/2017'),
+          endDate: new Date('02/07/2017'),
+          progress: 100,
+          duration: 5,
+          priority: 'Normal',
+          approved: false,
+          subtasks: [
+            { taskID: 7, taskName: 'Plan timeline', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Normal', approved: false },
+            { taskID: 8, taskName: 'Plan budget', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Low', approved: true },
+            { taskID: 9, taskName: 'Allocate resources', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Critical', approved: false },
+            { taskID: 10, taskName: 'Planning complete', startDate: new Date('02/07/2017'),
+              endDate: new Date('02/07/2017'), duration: 0, progress: 0, priority: 'Low', approved: true }
+          ]
+        },
+        { 
+          taskID: 1,
+          taskName: 'Planning',
+          startDate: new Date('02/03/2017'),
+          endDate: new Date('02/07/2017'),
+          progress: 100,
+          duration: 5,
+          priority: 'Normal',
+          approved: false,
+          subtasks: [
+            { taskID: 2, taskName: 'Plan timeline', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Normal', approved: false },
+            { taskID: 3, taskName: 'Plan budget', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Low', approved: true },
+            { taskID: 4, taskName: 'Allocate resources', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Critical', approved: false },
+            { taskID: 5, taskName: 'Planning complete', startDate: new Date('02/07/2017'),
+              endDate: new Date('02/07/2017'), duration: 0, progress: 0, priority: 'Low', approved: true }
+          ]
+        },
+        { 
+          taskID: 6,
+          taskName: 'Planning',
+          startDate: new Date('02/03/2017'),
+          endDate: new Date('02/07/2017'),
+          progress: 100,
+          duration: 5,
+          priority: 'Normal',
+          approved: false,
+          subtasks: [
+            { taskID: 7, taskName: 'Plan timeline', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Normal', approved: false },
+            { taskID: 8, taskName: 'Plan budget', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Low', approved: true },
+            { taskID: 9, taskName: 'Allocate resources', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Critical', approved: false },
+            { taskID: 10, taskName: 'Planning complete', startDate: new Date('02/07/2017'),
+              endDate: new Date('02/07/2017'), duration: 0, progress: 0, priority: 'Low', approved: true }
+          ]
+        },
+        { 
+          taskID: 1,
+          taskName: 'Planning',
+          startDate: new Date('02/03/2017'),
+          endDate: new Date('02/07/2017'),
+          progress: 100,
+          duration: 5,
+          priority: 'Normal',
+          approved: false,
+          subtasks: [
+            { taskID: 2, taskName: 'Plan timeline', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Normal', approved: false },
+            { taskID: 3, taskName: 'Plan budget', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Low', approved: true },
+            { taskID: 4, taskName: 'Allocate resources', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Critical', approved: false },
+            { taskID: 5, taskName: 'Planning complete', startDate: new Date('02/07/2017'),
+              endDate: new Date('02/07/2017'), duration: 0, progress: 0, priority: 'Low', approved: true }
+          ]
+        },
+        { 
+          taskID: 6,
+          taskName: 'Planning',
+          startDate: new Date('02/03/2017'),
+          endDate: new Date('02/07/2017'),
+          progress: 100,
+          duration: 5,
+          priority: 'Normal',
+          approved: false,
+          subtasks: [
+            { taskID: 7, taskName: 'Plan timeline', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Normal', approved: false },
+            { taskID: 8, taskName: 'Plan budget', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Low', approved: true },
+            { taskID: 9, taskName: 'Allocate resources', startDate: new Date('02/03/2017'),
+              endDate: new Date('02/07/2017'), duration: 5, progress: 100, priority: 'Critical', approved: false },
+            { taskID: 10, taskName: 'Planning complete', startDate: new Date('02/07/2017'),
+              endDate: new Date('02/07/2017'), duration: 0, progress: 0, priority: 'Low', approved: true }
+          ]
+        },
+      ];
+
+
