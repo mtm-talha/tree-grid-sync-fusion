@@ -5,20 +5,17 @@ childMapping="Crew"
 [treeColumnIndex]="1"
 [enableInfiniteScrolling]="true"
 [pageSettings]="pageSettings"
-height='600'
-[showColumnChooser]='true' 
-[toolbar]="toolbar"
+[height]="gridTreeHeight"
 [editSettings]='editing'
 [contextMenuItems]='contextMenuItems'
 (contextMenuOpen)='contextMenuOpen($event)'
 (contextMenuClick)="contextMenuClick($event)"
-[allowSorting]=true
-[allowFiltering]=true
 allowReordering='true'
 [allowResizing]=true
 [allowRowDragAndDrop]='true' 
 [selectionSettings]='selectOptions'
-
+[allowFiltering]="isFilterEnabled"
+[allowSorting]="isSortingEnabled"
 > 
 
 <e-columns>

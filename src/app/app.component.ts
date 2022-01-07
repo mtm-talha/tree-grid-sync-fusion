@@ -1,4 +1,4 @@
-import { Component, OnInit ,Inject, ViewChild } from '@angular/core';
+import { Component, OnInit ,Inject, ViewChild, HostListener } from '@angular/core';
 import { dataSource, virtualData } from './datasource';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { BeforeOpenCloseEventArgs } from '@syncfusion/ej2-inputs';
@@ -26,34 +26,41 @@ export class AppComponent implements OnInit {
   public contextMenuItems: Object[] = [];
   public editing: EditSettingsModel | undefined;
   public selectOptions: Object | undefined;
-
+  public gridTreeHeight:number=0;
+  public isFilterEnabled:boolean = false;
+  public isSortingEnabled:boolean = false;
   @ViewChild('treegrid')
   public treegrid : TreeGridComponent | undefined ;
 
   constructor(public dialog: MatDialog) {}
-  
+  @HostListener('window:resize', ['$event'])
+    onResize(event:any) {
+      this.gridTreeHeight=event.target.innerHeight-89
+
+  }
   ngOnInit(): void {
       dataSource();
+      this.gridTreeHeight=window.innerHeight-89
       this.vData = virtualData;
       this.pageSettings= { pageSize: 50 };
       this.toolbar = ['ColumnChooser']
       this.selectOptions = { type: 'Multiple' };
-
+      this.isFilterEnabled=false
+      this.isSortingEnabled=false
       this.contextMenuItems =  [
-        {text: 'Add Column', target: '.e-headercontent', id: 'addHeaderColoumn'},
+        {text: 'Add Column', target: '.e-headercontent', id: 'addColumnPopup'},
         {text: 'Edit Column', target: '.e-headercontent', id: ''},
         {text: 'Delete Column', target: '.e-headercontent', id: ''},
         {text: 'Choose Column', target: '.e-headercontent', id: 'chooseColumn'},
         {text: 'Freeze Column', target: '.e-headercontent', id: ''},
-        {text: 'Filter Column', target: '.e-headercontent', id: ''},
-        {text: 'Multisort Column', target: '.e-headercontent', id: ''},
+        {text: 'Filter Column', target: '.e-headercontent', id: 'toggleFilterColumn'},
+        {text: 'Multisort Column', target: '.e-headercontent', id: 'toggleSortColumn'},
 
         {text: 'Add Next', target: '.e-content', id: ''},
         {text: 'Add child', target: '.e-content', id: ''},
         'Edit',
         'Delete',
         'Save',
-        'AddRow',
         {text: 'Multiselect', target: '.e-content', id: ''},
         {text: 'Copy rows', target: '.e-content', id: ''},
         {text: 'Cut rows', target: '.e-content', id: ''},
@@ -87,9 +94,16 @@ contextMenuOpen(arg?: BeforeOpenCloseEventArgs): void {
     });
   }
   contextMenuClick (args: MenuEventArgs): void {
-    if (args.item.id === 'addHeaderColoumn') {
+    if (args.item.id === 'addColumnPopup') {
       this.openDialog();
     } 
+    if(args.item.id==='toggleFilterColumn'){
+      this.isFilterEnabled=!this.isFilterEnabled
+    }
+
+    if(args.item.id==='toggleSortColumn'){
+      this.isSortingEnabled=!this.isSortingEnabled
+    }
     
     
 }
