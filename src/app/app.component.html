@@ -1,4 +1,5 @@
 <ejs-treegrid 
+#treegrid
 [dataSource]="vData"
 childMapping="Crew"
 [treeColumnIndex]="1"
@@ -13,6 +14,10 @@ height='600'
 (contextMenuClick)="contextMenuClick($event)"
 [allowSorting]=true
 [allowFiltering]=true
+allowReordering='true'
+[allowResizing]=true
+[allowRowDragAndDrop]='true' 
+[selectionSettings]='selectOptions'
 
 > 
 

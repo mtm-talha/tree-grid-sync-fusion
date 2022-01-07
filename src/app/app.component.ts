@@ -25,21 +25,25 @@ export class AppComponent implements OnInit {
   public toolbar: string[] = [];
   public contextMenuItems: Object[] = [];
   public editing: EditSettingsModel | undefined;
+  public selectOptions: Object | undefined;
 
   @ViewChild('treegrid')
   public treegrid : TreeGridComponent | undefined ;
 
   constructor(public dialog: MatDialog) {}
+  
   ngOnInit(): void {
       dataSource();
       this.vData = virtualData;
       this.pageSettings= { pageSize: 50 };
-      this.toolbar = ['ColumnChooser'];
+      this.toolbar = ['ColumnChooser']
+      this.selectOptions = { type: 'Multiple' };
+
       this.contextMenuItems =  [
         {text: 'Add Column', target: '.e-headercontent', id: 'addHeaderColoumn'},
         {text: 'Edit Column', target: '.e-headercontent', id: ''},
         {text: 'Delete Column', target: '.e-headercontent', id: ''},
-        {text: 'Choose Column', target: '.e-headercontent', id: ''},
+        {text: 'Choose Column', target: '.e-headercontent', id: 'chooseColumn'},
         {text: 'Freeze Column', target: '.e-headercontent', id: ''},
         {text: 'Filter Column', target: '.e-headercontent', id: ''},
         {text: 'Multisort Column', target: '.e-headercontent', id: ''},
@@ -55,6 +59,7 @@ export class AppComponent implements OnInit {
         {text: 'Cut rows', target: '.e-content', id: ''},
         {text: 'Paste next', target: '.e-content', id: ''},
         {text: 'Paste child', target: '.e-content', id: ''},
+        
     ];
 
     this.editing = {
@@ -67,7 +72,8 @@ export class AppComponent implements OnInit {
       mode: 'Dialog'};
 }
 
-contextMenuOpen(arg?: BeforeOpenCloseEventArgs): void {}
+contextMenuOpen(arg?: BeforeOpenCloseEventArgs): void {
+}
 
 
   openDialog(): void {
