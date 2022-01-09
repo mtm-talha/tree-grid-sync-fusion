@@ -1,10 +1,11 @@
 import { Component, OnInit ,Inject, ViewChild, HostListener } from '@angular/core';
-import { dataSource, virtualData } from './datasource';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { BeforeOpenCloseEventArgs } from '@syncfusion/ej2-inputs';
 import { MenuEventArgs } from '@syncfusion/ej2-navigations';
 import {  EditSettingsModel } from '@syncfusion/ej2-treegrid'
 import { TreeGridComponent } from '@syncfusion/ej2-angular-treegrid';
+import { GridDataService } from 'src/services/grid-data/grid-data.service';
+import { CommonService } from 'src/services/common/common.service';
 
 export interface DialogData {
   animal: string;
@@ -19,8 +20,9 @@ export interface DialogData {
 export class AppComponent implements OnInit {
   title = 'treeGrid';
   name: string | undefined;
+  public columnsSetting:any = [];
 
-  public vData: Object[] = [];
+  public gridDataSource: Object[] = [];
   public pageSettings: Object | undefined;
   public toolbar: string[] = [];
   public contextMenuItems: Object[] = [];
@@ -29,19 +31,33 @@ export class AppComponent implements OnInit {
   public gridTreeHeight:number=0;
   public isFilterEnabled:boolean = false;
   public isSortingEnabled:boolean = false;
-  @ViewChild('treegrid')
-  public treegrid : TreeGridComponent | undefined ;
+  @ViewChild('treeGrid')
+  public treeGrid : TreeGridComponent | undefined;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog,
+    private gridDataService: GridDataService,
+    private commonService: CommonService,
+    ) {}
   @HostListener('window:resize', ['$event'])
     onResize(event:any) {
       this.gridTreeHeight=event.target.innerHeight-89
 
   }
   ngOnInit(): void {
-      dataSource();
+    this.gridDataService.getFakeData().subscribe(data => {
+     const properties=Object.keys(data.reduce((o:any,c:any) => Object.assign(o,c)));
+     properties.forEach((property:string)=>{
+       this.columnsSetting.push({
+          field :property,
+          headerText: this.commonService.camelStringToTitle(property),
+          width:'140',
+          textAlign:'Right'
+       })
+     })
+     this.gridDataSource = data;
+    });
+
       this.gridTreeHeight=window.innerHeight-89
-      this.vData = virtualData;
       this.pageSettings= { pageSize: 50 };
       this.toolbar = ['ColumnChooser']
       this.selectOptions = { type: 'Multiple' };

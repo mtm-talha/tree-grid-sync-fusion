@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import _ from 'lodash';
+import * as _ from 'lodash';
 
 import { environment } from 'src/environments/environment';
 
@@ -75,6 +75,15 @@ export class CommonService {
 
     return this.snackBar.open(message, action, config);
   }
+
+  public camelizeString =(str:String):String=> {
+    return str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
+  }
+  
+  public camelStringToTitle = (camelCase:String) => camelCase
+    .replace(/([A-Z])/g, (match) => ` ${match}`)
+    .replace(/^./, (match) => match.toUpperCase())
+    .trim();
 
   private getPanelClass(type: string): string[] {
     switch (type) {
