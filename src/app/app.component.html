@@ -1,8 +1,9 @@
 <ejs-treegrid 
 #treegrid
 [dataSource]="gridDataSource"
-childMapping="isParent"
-IdMapping="ParentItem"
+idMapping='TaskID'
+parentIdMapping='ParentItem'
+hasChildMapping='isParent'
 [treeColumnIndex]="1"
 [enableInfiniteScrolling]="true"
 [pageSettings]="pageSettings"
