@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from './app.component';
 
-import { AppComponent , DialogComponent } from './app.component';
+import { DialogComponent } from './dialogComponent/dialog.component';
 import { TreeGridModule, InfiniteScrollService, PageService, ColumnChooserService, ToolbarService } from '@syncfusion/ej2-angular-treegrid';
-import { SortService, EditService, FilterService, ResizeService, ContextMenuService , ReorderService, RowDDService, SelectionService } from '@syncfusion/ej2-angular-treegrid';
+import { SortService, EditService, FilterService, ResizeService, ContextMenuService , ReorderService, RowDDService, SelectionService  } from '@syncfusion/ej2-angular-treegrid';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
@@ -41,7 +42,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ContextMenuService,
     ReorderService,
     RowDDService,
-    SelectionService
+    SelectionService,
+    
   ],
   bootstrap: [AppComponent]
 })

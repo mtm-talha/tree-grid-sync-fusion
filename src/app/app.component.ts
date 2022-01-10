@@ -4,8 +4,10 @@ import { BeforeOpenCloseEventArgs } from '@syncfusion/ej2-inputs';
 import { MenuEventArgs } from '@syncfusion/ej2-navigations';
 import {  EditSettingsModel } from '@syncfusion/ej2-treegrid'
 import { TreeGridComponent } from '@syncfusion/ej2-angular-treegrid';
-import { GridDataService } from 'src/services/grid-data/grid-data.service';
+
 import { CommonService } from 'src/services/common/common.service';
+import { DialogComponent } from './dialogComponent/dialog.component';
+import { GridDataService } from 'src/services/grid-data/grid-data.service';
 
 export interface DialogData {
   animal: string;
@@ -24,13 +26,16 @@ export class AppComponent implements OnInit {
 
   public gridDataSource: Object[] = [];
   public pageSettings: Object | undefined;
-  public toolbar: string[] = [];
+  public toolbar: any;
+  public dragAndDropEnabled:any;
   public contextMenuItems: Object[] = [];
   public editing: EditSettingsModel | undefined;
   public selectOptions: Object | undefined;
   public gridTreeHeight:number=0;
+  public edit: Object | undefined;
   public isFilterEnabled:boolean = false;
   public isSortingEnabled:boolean = false;
+  public isColumnChooserEnabled:boolean=false;
   @ViewChild('treeGrid')
   public treeGrid : TreeGridComponent | undefined;
 
@@ -44,7 +49,7 @@ export class AppComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.gridDataService.getFakeData().subscribe(data => {
+    this.gridDataService.getFakeData().subscribe(data => { 
      const properties=Object.keys(data.reduce((o:any,c:any) => Object.assign(o,c)));
      properties.forEach((property:string)=>{
        this.columnsSetting.push({
@@ -59,25 +64,27 @@ export class AppComponent implements OnInit {
 
       this.gridTreeHeight=window.innerHeight-89
       this.pageSettings= { pageSize: 50 };
-      this.toolbar = ['ColumnChooser']
-      this.selectOptions = { type: 'Multiple' };
+      this.dragAndDropEnabled=false
       this.isFilterEnabled=false
       this.isSortingEnabled=false
+      this.isColumnChooserEnabled=true
+
+      console.log("oninit toolbarr", this.toolbar)
+      
+
       this.contextMenuItems =  [
         {text: 'Add Column', target: '.e-headercontent', id: 'addColumnPopup'},
         {text: 'Edit Column', target: '.e-headercontent', id: ''},
         {text: 'Delete Column', target: '.e-headercontent', id: ''},
-        {text: 'Choose Column', target: '.e-headercontent', id: 'chooseColumn'},
+        {text: 'Choose Column', target: '.e-headercontent', id: 'toggleChooseColumn'},
         {text: 'Freeze Column', target: '.e-headercontent', id: ''},
         {text: 'Filter Column', target: '.e-headercontent', id: 'toggleFilterColumn'},
         {text: 'Multisort Column', target: '.e-headercontent', id: 'toggleSortColumn'},
 
+        'Add', 'Edit', 'Delete', 'Update', 'Cancel',
         {text: 'Add Next', target: '.e-content', id: ''},
         {text: 'Add child', target: '.e-content', id: ''},
-        'Edit',
-        'Delete',
-        'Save',
-        {text: 'Multiselect', target: '.e-content', id: ''},
+        {text: 'Multiselect', target: '.e-content', id: 'toggleMultiSelectRows'},
         {text: 'Copy rows', target: '.e-content', id: ''},
         {text: 'Cut rows', target: '.e-content', id: ''},
         {text: 'Paste next', target: '.e-content', id: ''},
@@ -120,27 +127,20 @@ contextMenuOpen(arg?: BeforeOpenCloseEventArgs): void {
     if(args.item.id==='toggleSortColumn'){
       this.isSortingEnabled=!this.isSortingEnabled
     }
-    
-    
+
+    if(args.item.id === 'toggleChooseColumn'){
+      if(this.toolbar==undefined){
+        this.toolbar=['ColumnChooser'];
+      }else{
+        this.toolbar = undefined;
+      }
+     }
+    if(args.item.id === 'toggleMultiSelectRows'){
+      this.dragAndDropEnabled =!  this.dragAndDropEnabled
+      this.selectOptions ={ type: 'Multiple' };
+    } 
 }
 
 }
 
-@Component({
-  selector: 'DialogComponent',
-  templateUrl: './dialogComponent/dialog.component.html',
-  styleUrls: ['./dialogComponent/dialog.component.css']
 
-})
-export class DialogComponent {
-  public fontColor: string = '';
-  public backGroundColor: string = '';
-  constructor(
-    public dialogRef: MatDialogRef<DialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
-  ) {}
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-}

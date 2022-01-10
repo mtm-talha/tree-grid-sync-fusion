@@ -1,7 +1,9 @@
 <ejs-treegrid 
 #treegrid
 [dataSource]="gridDataSource"
-childMapping="Crew"
+idMapping='TaskID'
+parentIdMapping='ParentItem'
+hasChildMapping='isParent'
 [treeColumnIndex]="1"
 [enableInfiniteScrolling]="true"
 [pageSettings]="pageSettings"
@@ -12,10 +14,12 @@ childMapping="Crew"
 (contextMenuClick)="contextMenuClick($event)"
 allowReordering='true'
 [allowResizing]=true
-[allowRowDragAndDrop]='true' 
+[allowRowDragAndDrop]='dragAndDropEnabled' 
 [selectionSettings]='selectOptions'
 [allowFiltering]="isFilterEnabled"
 [allowSorting]="isSortingEnabled"
+[showColumnChooser]="isColumnChooserEnabled"
+[toolbar]="toolbar"
 > 
 
 <e-columns>
