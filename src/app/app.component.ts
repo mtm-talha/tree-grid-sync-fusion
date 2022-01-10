@@ -134,9 +134,7 @@ contextMenuOpen(arg?: BeforeOpenCloseEventArgs): void {
       }else{
         this.toolbar = undefined;
       }
-      
-    }
-
+     }
     if(args.item.id === 'toggleMultiSelectRows'){
       this.dragAndDropEnabled =!  this.dragAndDropEnabled
       this.selectOptions ={ type: 'Multiple' };
