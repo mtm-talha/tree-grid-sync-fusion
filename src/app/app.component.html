@@ -1,6 +1,6 @@
 <ejs-treegrid 
 #treegrid
-[dataSource]="vData"
+[dataSource]="gridDataSource"
 childMapping="Crew"
 [treeColumnIndex]="1"
 [enableInfiniteScrolling]="true"
@@ -21,13 +21,13 @@ allowReordering='true'
 > 
 
 <e-columns>
-  <e-column field='TaskID' headerText='Task ID' width='140' isPrimaryKey='true' textAlign='Left'></e-column>
-  <e-column field='TaskID' headerText='Player Jersey' width='140' textAlign='Left'></e-column>
-  <e-column field='FIELD1' headerText='Player Name' width='140'></e-column>
-  <e-column field='FIELD2' headerText='Year' width='120' textAlign='Right'></e-column>
-  <e-column field='FIELD3' headerText='Stint' width='90' textAlign='Right'></e-column>
-  <e-column field='FIELD4' headerText='TMID' width='90' textAlign='Right'></e-column>
-  <e-column field='FIELD5' headerText='LGID' width='90' textAlign='Right'></e-column>        
+  <e-column 
+    *ngFor="let column of columnsSetting"
+    field={{column.field}}
+    headerText={{column.headerText}}
+    width={{column.width}}
+    textAlign={{column.textAlign}}>
+  </e-column>
 </e-columns>
 
 </ejs-treegrid>
