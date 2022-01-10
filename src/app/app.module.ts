@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent , DialogComponent } from './app.component';
 import { TreeGridModule, InfiniteScrollService, PageService, ColumnChooserService, ToolbarService } from '@syncfusion/ej2-angular-treegrid';
-import { SortService, EditService, FilterService, ResizeService, ContextMenuService , ReorderService, RowDDService, SelectionService } from '@syncfusion/ej2-angular-treegrid';
+import { SortService, EditService, FilterService, ResizeService, ContextMenuService , ReorderService, RowDDService, SelectionService  } from '@syncfusion/ej2-angular-treegrid';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
@@ -37,7 +37,8 @@ import { ColorPickerModule } from 'ngx-color-picker';
     ContextMenuService,
     ReorderService,
     RowDDService,
-    SelectionService
+    SelectionService,
+    
   ],
   bootstrap: [AppComponent]
 })

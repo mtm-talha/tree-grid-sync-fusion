@@ -22,13 +22,16 @@ export class AppComponent implements OnInit {
 
   public vData: Object[] = [];
   public pageSettings: Object | undefined;
-  public toolbar: string[] = [];
+  public toolbar: any;
+  public dragAndDropEnabled:any;
   public contextMenuItems: Object[] = [];
   public editing: EditSettingsModel | undefined;
   public selectOptions: Object | undefined;
   public gridTreeHeight:number=0;
+  public edit: Object | undefined;
   public isFilterEnabled:boolean = false;
   public isSortingEnabled:boolean = false;
+  public isColumnChooserEnabled:boolean=false;
   @ViewChild('treegrid')
   public treegrid : TreeGridComponent | undefined ;
 
@@ -43,25 +46,27 @@ export class AppComponent implements OnInit {
       this.gridTreeHeight=window.innerHeight-89
       this.vData = virtualData;
       this.pageSettings= { pageSize: 50 };
-      this.toolbar = ['ColumnChooser']
-      this.selectOptions = { type: 'Multiple' };
+      this.dragAndDropEnabled=false
       this.isFilterEnabled=false
       this.isSortingEnabled=false
+      this.isColumnChooserEnabled=true
+
+      console.log("oninit toolbarr", this.toolbar)
+      
+
       this.contextMenuItems =  [
         {text: 'Add Column', target: '.e-headercontent', id: 'addColumnPopup'},
         {text: 'Edit Column', target: '.e-headercontent', id: ''},
         {text: 'Delete Column', target: '.e-headercontent', id: ''},
-        {text: 'Choose Column', target: '.e-headercontent', id: 'chooseColumn'},
+        {text: 'Choose Column', target: '.e-headercontent', id: 'toggleChooseColumn'},
         {text: 'Freeze Column', target: '.e-headercontent', id: ''},
         {text: 'Filter Column', target: '.e-headercontent', id: 'toggleFilterColumn'},
         {text: 'Multisort Column', target: '.e-headercontent', id: 'toggleSortColumn'},
 
+        'Add', 'Edit', 'Delete', 'Update', 'Cancel',
         {text: 'Add Next', target: '.e-content', id: ''},
         {text: 'Add child', target: '.e-content', id: ''},
-        'Edit',
-        'Delete',
-        'Save',
-        {text: 'Multiselect', target: '.e-content', id: ''},
+        {text: 'Multiselect', target: '.e-content', id: 'toggleMultiSelectRows'},
         {text: 'Copy rows', target: '.e-content', id: ''},
         {text: 'Cut rows', target: '.e-content', id: ''},
         {text: 'Paste next', target: '.e-content', id: ''},
@@ -103,6 +108,20 @@ contextMenuOpen(arg?: BeforeOpenCloseEventArgs): void {
 
     if(args.item.id==='toggleSortColumn'){
       this.isSortingEnabled=!this.isSortingEnabled
+    }
+
+    if(args.item.id === 'toggleChooseColumn'){
+      if(this.toolbar==undefined){
+        this.toolbar=['ColumnChooser'];
+      }else{
+        this.toolbar = undefined;
+      }
+      
+    }
+
+    if(args.item.id === 'toggleMultiSelectRows'){
+      this.dragAndDropEnabled =!  this.dragAndDropEnabled
+      this.selectOptions ={ type: 'Multiple' };
     }
     
     
