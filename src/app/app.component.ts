@@ -5,6 +5,12 @@ import { BeforeOpenCloseEventArgs } from '@syncfusion/ej2-inputs';
 import { MenuEventArgs } from '@syncfusion/ej2-navigations';
 import {  EditSettingsModel } from '@syncfusion/ej2-treegrid'
 import { TreeGridComponent } from '@syncfusion/ej2-angular-treegrid';
+<<<<<<< Updated upstream
+=======
+import { GridDataService } from 'src/services/grid-data/grid-data.service';
+import { CommonService } from 'src/services/common/common.service';
+import { DialogComponent } from './dialogComponent/dialog.component';
+>>>>>>> Stashed changes
 
 export interface DialogData {
   animal: string;
@@ -42,7 +48,23 @@ export class AppComponent implements OnInit {
 
   }
   ngOnInit(): void {
+<<<<<<< Updated upstream
       dataSource();
+=======
+    this.gridDataService.getFakeData().subscribe(data => { 
+     const properties=Object.keys(data.reduce((o:any,c:any) => Object.assign(o,c)));
+     properties.forEach((property:string)=>{
+       this.columnsSetting.push({
+          field :property,
+          headerText: this.commonService.camelStringToTitle(property),
+          width:'140',
+          textAlign:'Right'
+       })
+     })
+     this.gridDataSource = data;
+    });
+
+>>>>>>> Stashed changes
       this.gridTreeHeight=window.innerHeight-89
       this.vData = virtualData;
       this.pageSettings= { pageSize: 50 };
@@ -129,21 +151,4 @@ contextMenuOpen(arg?: BeforeOpenCloseEventArgs): void {
 
 }
 
-@Component({
-  selector: 'DialogComponent',
-  templateUrl: './dialogComponent/dialog.component.html',
-  styleUrls: ['./dialogComponent/dialog.component.css']
 
-})
-export class DialogComponent {
-  public fontColor: string = '';
-  public backGroundColor: string = '';
-  constructor(
-    public dialogRef: MatDialogRef<DialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
-  ) {}
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-}
