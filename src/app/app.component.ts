@@ -36,8 +36,8 @@ export class AppComponent implements OnInit {
   public isFilterEnabled:boolean = false;
   public isSortingEnabled:boolean = false;
   public isColumnChooserEnabled:boolean=false;
-  @ViewChild('treeGrid')
-  public treeGrid : TreeGridComponent | undefined;
+  @ViewChild('treegrid')
+  public treegrid!: TreeGridComponent;
 
   constructor(public dialog: MatDialog,
     private gridDataService: GridDataService,
@@ -50,16 +50,19 @@ export class AppComponent implements OnInit {
   }
   ngOnInit(): void {
     this.gridDataService.getFakeData().subscribe(data => { 
-     const properties=Object.keys(data.reduce((o:any,c:any) => Object.assign(o,c)));
-     properties.forEach((property:string)=>{
+     const properties=Object.keys(data.reduce((o:any,c:any) => Object.assign(o,c)));    
+     properties.forEach((property:string , index)=>{
+              
        this.columnsSetting.push({
           field :property,
           headerText: this.commonService.camelStringToTitle(property),
           width:'140',
-          textAlign:'Right'
+          textAlign:'Right',
+          dataType: "",
+          textWrap: ""
        })
      })
-     this.gridDataSource = data;
+     this.gridDataSource = data;     
     });
 
       this.gridTreeHeight=window.innerHeight-89
@@ -75,7 +78,7 @@ export class AppComponent implements OnInit {
       this.contextMenuItems =  [
         {text: 'Add Column', target: '.e-headercontent', id: 'addColumnPopup'},
         {text: 'Edit Column', target: '.e-headercontent', id: ''},
-        {text: 'Delete Column', target: '.e-headercontent', id: ''},
+        {text: 'Delete Column', target: '.e-headercontent', id: 'deleteColumn'},
         {text: 'Choose Column', target: '.e-headercontent', id: 'toggleChooseColumn'},
         {text: 'Freeze Column', target: '.e-headercontent', id: ''},
         {text: 'Filter Column', target: '.e-headercontent', id: 'toggleFilterColumn'},
@@ -102,10 +105,7 @@ export class AppComponent implements OnInit {
       mode: 'Dialog'};
 }
 
-contextMenuOpen(arg?: BeforeOpenCloseEventArgs): void {
-}
-
-
+  contextMenuOpen(arg?: BeforeOpenCloseEventArgs): void {}
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '300px',
@@ -113,13 +113,25 @@ contextMenuOpen(arg?: BeforeOpenCloseEventArgs): void {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      // if(result.data.field && result.data.backGroundColor &&  result.data.textAlign){
+        this.columnsSetting.push(result.data);
+      // }
     });
+    
   }
-  contextMenuClick (args: MenuEventArgs): void {
+  contextMenuClick (args: any): void {
     if (args.item.id === 'addColumnPopup') {
-      this.openDialog();
-    } 
+      this.openDialog();     
+    }else if(args.item.id === 'deleteColumn') {
+
+      let fieldID = args.column.field;
+      this.gridDataSource = this.gridDataSource.filter((item:any) => delete item[fieldID]);
+      this.columnsSetting = this.columnsSetting.filter((item:any) => {
+        if(item.field != fieldID){
+            return item
+        }
+      });
+    }
     if(args.item.id==='toggleFilterColumn'){
       this.isFilterEnabled=!this.isFilterEnabled
     }
@@ -137,10 +149,9 @@ contextMenuOpen(arg?: BeforeOpenCloseEventArgs): void {
      }
     if(args.item.id === 'toggleMultiSelectRows'){
       this.dragAndDropEnabled =!  this.dragAndDropEnabled
-      this.selectOptions ={ type: 'Multiple' };
+      this.selectOptions = { type: 'Multiple' };
     } 
-}
-
+  }
 }
 
 
