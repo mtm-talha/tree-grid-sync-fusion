@@ -13,6 +13,8 @@ import {MatSelectModule} from '@angular/material/select';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatCardModule} from '@angular/material/card';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +30,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatSelectModule,
     ColorPickerModule,
     HttpClientModule ,
-    MatSnackBarModule 
+    MatSnackBarModule,
+    MatCardModule,
+    FormsModule 
   ],
   providers: [
     ToolbarService,

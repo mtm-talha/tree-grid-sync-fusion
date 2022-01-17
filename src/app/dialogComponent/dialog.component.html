@@ -1,50 +1,56 @@
 <h2 mat-dialog-title>Add New Column</h2>
-<div class="example-container" mat-dialog-content>
-  <mat-form-field appearance="fill">
-    <mat-label>Column Name</mat-label>
-    <input matInput>
-  </mat-form-field>
-  <mat-form-field appearance="fill">
-    <mat-label>Data Type</mat-label>
-    <mat-select value="one">
-      <mat-option value="one">Text</mat-option>
-      <mat-option value="two">Number</mat-option>
-      <mat-option value="three">Date</mat-option>
-      <mat-option value="four">Boolean</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field appearance="fill">
-    <mat-label>Minimun Column Width</mat-label>
-    <input matInput type="number">
-  </mat-form-field>
-  <mat-form-field appearance="fill">
-    <mat-label>Font Size</mat-label>
-    <input matInput type="number">
-  </mat-form-field>
-  <mat-form-field appearance="fill">
-      <mat-label>Allignemnt</mat-label>
-      <mat-select value="one">
-        <mat-option value="one">Left</mat-option>
-        <mat-option value="two">Right</mat-option>
-        <mat-option value="three">Center</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Text Wrap</mat-label>
-      <mat-select value="one">
-        <mat-option value="one">True</mat-option>
-        <mat-option value="two">False</mat-option>
-      </mat-select>
-    </mat-form-field>
-   <div class="colorPickerCustome">
-        <mat-label>Font Color</mat-label>
-        <input class="customeFontColor" [(colorPicker)]="fontColor" [style.background]="fontColor"/>
+<form #addColumn = "ngForm" (ngSubmit)="onSubmit(addColumn.value)">
+    <div class="example-container" mat-dialog-content>
+      <mat-form-field appearance="fill">
+        <mat-label>Column Name</mat-label>
+        <input matInput type="text" name="headerText" [(ngModel)]="data.headerText">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Data Type</mat-label>
+        <mat-select name="dataType" [(ngModel)]="data.dataType">
+          <mat-option value="text">Text</mat-option>
+          <mat-option value="number">Number</mat-option>
+          <mat-option value="date">Date</mat-option>
+          <mat-option value="boolean">Boolean</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Minimun Column Width</mat-label>
+        <input matInput type="number" name="width" [(ngModel)]="data.width">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Font Size</mat-label>
+        <input matInput type="number">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+          <mat-label>Allignemnt</mat-label>
+          <mat-select name="textAlign" [(ngModel)]="data.textAlign">
+            <mat-option value="left">Left</mat-option>
+            <mat-option value="right">Right</mat-option>
+            <mat-option value="center">Center</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Text Wrap</mat-label>
+          <mat-select name="textWrap" [(ngModel)]="data.textWrap">
+            <mat-option value="true">True</mat-option>
+            <mat-option value="false">False</mat-option>
+          </mat-select>
+        </mat-form-field>
+      <div class="colorPickerCustome">
+            <mat-label>Font Color</mat-label>
+            <input class="customeFontColor" [(colorPicker)]="fontColor" [style.background]="fontColor" value="one" name="fontColor" ngModel/>
 
-        <mat-label>Background Color</mat-label>
-        <input [(colorPicker)]="backGroundColor" [style.background]="backGroundColor"/> 
-  </div>
-</div>
-<div class="cutomeDialogActions" mat-dialog-actions>
+            <mat-label>Background Color</mat-label>
+            <input [(colorPicker)]="backGroundColor" [style.background]="backGroundColor"  name="backgroundColor" ngModel/> 
+      </div>
+    </div>
+    <mat-card-actions>
+      <button mat-button type="button" (click)="onNoClick()">Cancel</button>
+      <button mat-raised-button color="primary" type="submit">Save</button>
+  </mat-card-actions>
+</form>
+<!-- <div class="cutomeDialogActions" mat-dialog-actions>
   <button mat-button cdkFocusInitial>Save</button>
   <button mat-button (click)="onNoClick()">Cancel</button>
-</div>
+</div> -->
