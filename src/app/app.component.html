@@ -1,5 +1,30 @@
+<div *ngIf='showFreezecolumns' class="grid-freezeprop">
+  <div class="grid-freezecol">
+      <div class="grid-freezecol">
+          <span>
+              Column
+          </span>
+      </div>
+      <div class="grid-freezecol">
+          <ejs-dropdownlist id='column' #columndropdown index='7' [dataSource]='columnData'
+              (change)='columnChange($event)' [fields]='fields'></ejs-dropdownlist>
+      </div>
+  </div>
+  <div class="grid-freezecol">
+      <div class="grid-freezecol">
+          <span>
+              Freeze Direction
+          </span>
+      </div>
+      <div class="grid-freezecol">
+          <ejs-dropdownlist id='direction' #directiondropdown index='0' [dataSource]='directionData'
+              (change)='directionChange($event)' [fields]='fields'></ejs-dropdownlist>
+      </div>
+  </div>
+</div>
+
 <ejs-treegrid 
-#treegrid
+#treeGrid
 [dataSource]="gridDataSource"
 idMapping='TaskID'
 parentIdMapping='ParentItem'
@@ -31,5 +56,4 @@ allowReordering='true'
     textAlign={{column.textAlign}}>
   </e-column>
 </e-columns>
-
 </ejs-treegrid>
