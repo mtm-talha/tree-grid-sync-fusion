@@ -57,9 +57,10 @@ export class AppComponent implements OnInit {
           field :property,
           headerText: this.commonService.camelStringToTitle(property),
           width:'140',
-          textAlign:'Right',
-          dataType: "",
-          textWrap: ""
+          textAlign:'right',
+          dataType: "text",
+          textWrap: "true",
+          customAttributes: {style:{ 'background': "#fffff", 'color': "#ccccc"}}
        })
      })
      this.gridDataSource = data;     
@@ -72,12 +73,11 @@ export class AppComponent implements OnInit {
       this.isSortingEnabled=false
       this.isColumnChooserEnabled=true
 
-      console.log("oninit toolbarr", this.toolbar)
-      
+            
 
       this.contextMenuItems =  [
         {text: 'Add Column', target: '.e-headercontent', id: 'addColumnPopup'},
-        {text: 'Edit Column', target: '.e-headercontent', id: ''},
+        {text: 'Edit Column', target: '.e-headercontent', id: 'editColumn'},
         {text: 'Delete Column', target: '.e-headercontent', id: 'deleteColumn'},
         {text: 'Choose Column', target: '.e-headercontent', id: 'toggleChooseColumn'},
         {text: 'Freeze Column', target: '.e-headercontent', id: ''},
@@ -106,7 +106,7 @@ export class AppComponent implements OnInit {
 }
 
   contextMenuOpen(arg?: BeforeOpenCloseEventArgs): void {}
-  openDialog(): void {
+  openDialog(index:number): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '300px',
       data: {name: this.name},
@@ -114,14 +114,42 @@ export class AppComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       // if(result.data.field && result.data.backGroundColor &&  result.data.textAlign){
-        this.columnsSetting.push(result.data);
+        // this.columnsSetting.push(result.data);
+        this.columnsSetting.splice(index,0, result.data);
       // }
     });
     
   }
+
+  editDialog(data:any ,indexColumn:any): void {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '300px',
+      data: data,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      
+        // this.columnsSetting = this.columnsSetting.filter((item:any , index:any) => {
+        //   if(index == indexColumn){
+        //       return result.data
+        //   }
+        //   else{
+        //     return item;
+        //   }
+        // });
+        this.columnsSetting = [...this.columnsSetting , this.columnsSetting[result.data]];
+        console.log("columnsSetting--->",this.columnsSetting)
+      
+    });
+
+    console.log("dialogRef-->",dialogRef)
+    
+  }
+
   contextMenuClick (args: any): void {
     if (args.item.id === 'addColumnPopup') {
-      this.openDialog();     
+      let index = args.column.index;
+      this.openDialog(index);     
     }else if(args.item.id === 'deleteColumn') {
 
       let fieldID = args.column.field;
@@ -131,6 +159,10 @@ export class AppComponent implements OnInit {
             return item
         }
       });
+    }else if( args.item.id == "editColumn"){
+      let index = args.column.index;
+      this.editDialog(this.columnsSetting[index] , index);
+      // 
     }
     if(args.item.id==='toggleFilterColumn'){
       this.isFilterEnabled=!this.isFilterEnabled

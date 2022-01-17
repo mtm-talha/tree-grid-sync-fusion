@@ -3,20 +3,20 @@
     <div class="example-container" mat-dialog-content>
       <mat-form-field appearance="fill">
         <mat-label>Column Name</mat-label>
-        <input matInput type="text" name="headerText" ngModel>
+        <input matInput type="text" name="headerText" [(ngModel)]="data.headerText">
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Data Type</mat-label>
-        <mat-select value="one" name="dataType" ngModel>
-          <mat-option value="one">Text</mat-option>
-          <mat-option value="two">Number</mat-option>
-          <mat-option value="three">Date</mat-option>
-          <mat-option value="four">Boolean</mat-option>
+        <mat-select name="dataType" [(ngModel)]="data.dataType">
+          <mat-option value="text">Text</mat-option>
+          <mat-option value="number">Number</mat-option>
+          <mat-option value="date">Date</mat-option>
+          <mat-option value="boolean">Boolean</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Minimun Column Width</mat-label>
-        <input matInput type="number" name="width" ngModel>
+        <input matInput type="number" name="width" [(ngModel)]="data.width">
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Font Size</mat-label>
@@ -24,17 +24,17 @@
       </mat-form-field>
       <mat-form-field appearance="fill">
           <mat-label>Allignemnt</mat-label>
-          <mat-select value="one" name="textAlign" ngModel>
-            <mat-option value="one">Left</mat-option>
-            <mat-option value="two">Right</mat-option>
-            <mat-option value="three">Center</mat-option>
+          <mat-select name="textAlign" [(ngModel)]="data.textAlign">
+            <mat-option value="left">Left</mat-option>
+            <mat-option value="right">Right</mat-option>
+            <mat-option value="center">Center</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Text Wrap</mat-label>
-          <mat-select value="one" value="one" name="textWrap" ngModel>
-            <mat-option value="one">True</mat-option>
-            <mat-option value="two">False</mat-option>
+          <mat-select name="textWrap" [(ngModel)]="data.textWrap">
+            <mat-option value="true">True</mat-option>
+            <mat-option value="false">False</mat-option>
           </mat-select>
         </mat-form-field>
       <div class="colorPickerCustome">
@@ -46,7 +46,7 @@
       </div>
     </div>
     <mat-card-actions>
-      <button mat-button (click)="onNoClick()">Cancel</button>
+      <button mat-button type="button" (click)="onNoClick()">Cancel</button>
       <button mat-raised-button color="primary" type="submit">Save</button>
   </mat-card-actions>
 </form>
