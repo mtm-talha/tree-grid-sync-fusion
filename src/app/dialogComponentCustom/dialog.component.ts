@@ -8,11 +8,11 @@ import { DialogData } from "../app.component";
     styleUrls: ['./dialog.component.css']
   
   })
-  export class DialogComponent {
+  export class DialogComponentCustom {
     public fontColor: string = '';
     public backGroundColor: string = '';
     constructor(
-      public dialogRef: MatDialogRef<DialogComponent>,
+      public dialogRef: MatDialogRef<DialogComponentCustom>,
       @Inject(MAT_DIALOG_DATA) public data: DialogData,
     ) {}
   

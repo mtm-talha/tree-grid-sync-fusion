@@ -6,8 +6,11 @@ import {  EditSettingsModel } from '@syncfusion/ej2-treegrid'
 import { TreeGridComponent } from '@syncfusion/ej2-angular-treegrid';
 
 import { CommonService } from 'src/services/common/common.service';
-import { DialogComponent } from './dialogComponent/dialog.component';
+import { DialogComponentCustom } from './dialogComponentCustom/dialog.component';
 import { GridDataService } from 'src/services/grid-data/grid-data.service';
+import { freezeDirection, Column } from '@syncfusion/ej2-grids';
+import { DropDownListComponent, ChangeEventArgs } from '@syncfusion/ej2-angular-dropdowns';
+import { DialogComponent,ButtonPropsModel } from '@syncfusion/ej2-angular-popups';
 
 export interface DialogData {
   animal: string;
@@ -22,11 +25,22 @@ export interface DialogData {
 export class AppComponent implements OnInit {
   title = 'treeGrid';
   name: string | undefined;
-  public columnsSetting:any = [];
 
+
+  @ViewChild('treeGrid')
+  public treeGrid !: TreeGridComponent;
+  @ViewChild('columndropdown')
+  public columnDropDown!: DropDownListComponent;
+  @ViewChild('directiondropdown')
+  public directionDropDown!: DropDownListComponent;
+  @ViewChild('alertDialog')
+  public alertDialog!: DialogComponent;
+  
+  public columnsSetting:any = [];
   public gridDataSource: Object[] = [];
   public pageSettings: Object | undefined;
   public toolbar: any;
+  public showFreezecolumns:boolean=false
   public dragAndDropEnabled:any;
   public contextMenuItems: Object[] = [];
   public editing: EditSettingsModel | undefined;
@@ -36,8 +50,21 @@ export class AppComponent implements OnInit {
   public isFilterEnabled:boolean = false;
   public isSortingEnabled:boolean = false;
   public isColumnChooserEnabled:boolean=false;
-  @ViewChild('treeGrid')
-  public treeGrid : TreeGridComponent | undefined;
+  public refresh: boolean = true;
+  public visible: boolean = false;
+  public fields: object = { text: 'name', value: 'id' };
+  public animationSettings: object = { effect: 'None' };
+  public content: string = 'Atleast one Column should be movable';
+  public header: string = 'Frozen';
+  public showCloseIcon: boolean = false;
+  public target: string = '.control-section';
+  public width: string = '300px';
+  public directionData: Object[] = [
+    { id: 'Left', name: 'Left' },
+    { id: 'Right', name: 'Right' },
+        { id: 'Center', name: 'Center' }
+];
+public columnData: Object[]=[]
 
   constructor(public dialog: MatDialog,
     private gridDataService: GridDataService,
@@ -59,6 +86,12 @@ export class AppComponent implements OnInit {
           textAlign:'Right'
        })
      })
+     this.columnData =  this.columnsSetting.map((column:any)=>{
+      return {
+        id:column.field,
+        name:column.headerText,
+      }
+    });
      this.gridDataSource = data;
     });
 
@@ -68,6 +101,7 @@ export class AppComponent implements OnInit {
       this.isFilterEnabled=false
       this.isSortingEnabled=false
       this.isColumnChooserEnabled=true
+      this.showFreezecolumns=false
 
       console.log("oninit toolbarr", this.toolbar)
       
@@ -75,13 +109,13 @@ export class AppComponent implements OnInit {
       this.contextMenuItems =  [
         {text: 'Add Column', target: '.e-headercontent', id: 'addColumnPopup'},
         {text: 'Edit Column', target: '.e-headercontent', id: ''},
-        {text: 'Delete Column', target: '.e-headercontent', id: ''},
+        {text: 'Delete Column', target: '.e-headercontent', id: 'deleteColumn'},
         {text: 'Choose Column', target: '.e-headercontent', id: 'toggleChooseColumn'},
-        {text: 'Freeze Column', target: '.e-headercontent', id: ''},
+        {text: 'Freeze Column', target: '.e-headercontent', id: 'toggleFreezeColumns'},
         {text: 'Filter Column', target: '.e-headercontent', id: 'toggleFilterColumn'},
         {text: 'Multisort Column', target: '.e-headercontent', id: 'toggleSortColumn'},
 
-        'Add', 'Edit', 'Delete', 'Update', 'Cancel',
+        'Edit', 'Delete', 'Update', 'Cancel',
         {text: 'Add Next', target: '.e-content', id: ''},
         {text: 'Add child', target: '.e-content', id: ''},
         {text: 'Multiselect', target: '.e-content', id: 'toggleMultiSelectRows'},
@@ -105,9 +139,53 @@ export class AppComponent implements OnInit {
 contextMenuOpen(arg?: BeforeOpenCloseEventArgs): void {
 }
 
+public columnChange(e: ChangeEventArgs): void {
+  let columnName: string = e.value as string;
+  console.log("this.treeGrid.grid",this.treeGrid)
+        let column: Column = this.treeGrid.grid.getColumnByField(columnName);
+        let value: string = column.freeze === undefined ? 'Center' : column.freeze;
+        this.refresh = this.directionDropDown.value === value;
+        this.directionDropDown.value = value;
+}
+public directionChange(e: ChangeEventArgs): void {
+  if (this.refresh) {
+    let columnName: string = this.columnDropDown.value as string;    
+    let mvblColumns: Column[] = this.treeGrid.grid.getMovableColumns();
+    if (
+      mvblColumns.length === 1 &&
+      columnName === mvblColumns[0].field &&
+      e.value !== mvblColumns[0].freeze
+    ) {
+      this.refresh = false;
+      this.directionDropDown.value = 'Center';
+      this.directionDropDown.refresh();
+    } else {
+      console.log('this.mvblColumns false',columnName)
+      console.log('e.value',e.value)
+      console.log('this.getColumnByField',this.treeGrid.grid.getColumnByField(columnName))
+      // this.treeGrid.grid.getColumnByField(columnName).freeze =
+      //   e.value === 'Center' ? 'Left'  : (e.value as freezeDirection);
+        
+        this.treeGrid.refreshColumns();
+    }
+  }
+  this.refresh = true;
+}
+
+public alertDialogBtnClick = (): void => {
+  this.alertDialog.hide();
+};
+
+public dlgButtons: ButtonPropsModel[] = [
+  {
+    click: this.alertDialogBtnClick.bind(this),
+    buttonModel: { content: 'OK', isPrimary: true }
+  }
+];
+
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(DialogComponent, {
+    const dialogRef = this.dialog.open(DialogComponentCustom, {
       width: '300px',
       data: {name: this.name},
     });
@@ -139,8 +217,9 @@ contextMenuOpen(arg?: BeforeOpenCloseEventArgs): void {
       this.dragAndDropEnabled =!  this.dragAndDropEnabled
       this.selectOptions ={ type: 'Multiple' };
     } 
-}
+    if(args.item.id == 'toggleFreezeColumns'){
+      this.showFreezecolumns =! this.showFreezecolumns
+    }
 
 }
-
-
+}
